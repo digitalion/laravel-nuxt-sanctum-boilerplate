@@ -1,12 +1,15 @@
+@import "./bootstrap/variables";
+
 $theme-colors: (
-  'primary': #145bea,
-  'secondary': #833bec,
-  'success': #1ce1ac,
-  'info': #ff7d50,
-  'warning': #ffbe0b,
-  'danger': #ff007f,
-  'light': #c0ccda,
-  'dark': #001738,
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
 );
 
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+@import "./bootstrap/bootswatch";

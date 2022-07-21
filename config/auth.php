@@ -2,7 +2,7 @@
 
 return [
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Authentication Defaults
     |--------------------------------------------------------------------------
@@ -13,12 +13,12 @@ return [
     |
     */
 
-    'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
-    ],
+	'defaults' => [
+		'guard' => 'api',
+		'passwords' => 'users',
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Authentication Guards
     |--------------------------------------------------------------------------
@@ -31,18 +31,23 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session"
+    | Supported: "session", "token"
     |
     */
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-    ],
+	'guards' => [
+		'api' => [
+			'driver' => 'token',
+			'provider' => 'users',
+			'hash' => false,
+		],
+		'web' => [
+			'driver' => 'session',
+			'provider' => 'users',
+		],
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | User Providers
     |--------------------------------------------------------------------------
@@ -59,19 +64,19 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
+	'providers' => [
+		'users' => [
+			'driver' => 'eloquent',
+			'model' => App\Models\User::class,
+		],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
-    ],
+		// 'users' => [
+		//     'driver' => 'database',
+		//     'table' => 'users',
+		// ],
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Resetting Passwords
     |--------------------------------------------------------------------------
@@ -80,22 +85,22 @@ return [
     | than one user table or model in the application and you want to have
     | separate password reset settings based on the specific user types.
     |
-    | The expire time is the number of minutes that each reset token will be
+    | The expire time is the number of minutes that the reset token should be
     | considered valid. This security feature keeps tokens short-lived so
     | they have less time to be guessed. You may change this as needed.
     |
     */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
+	'passwords' => [
+		'users' => [
+			'provider' => 'users',
+			'table' => 'password_resets',
+			'expire' => 60,
+			'throttle' => 60,
+		],
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout
     |--------------------------------------------------------------------------
@@ -106,6 +111,6 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+	'password_timeout' => 10800,
 
 ];

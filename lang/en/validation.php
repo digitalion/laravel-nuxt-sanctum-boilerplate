@@ -164,6 +164,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => trans('fields'),
 
 ];
