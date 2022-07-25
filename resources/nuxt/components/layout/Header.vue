@@ -2,7 +2,9 @@
   <header
     class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
   >
-    <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Starter</div>
+    <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3">
+      <img src="/images/favicon.png" class="me-2" height="28" />Boilerplate
+    </div>
     <button
       class="navbar-toggler position-absolute d-md-none collapsed"
       type="button"
@@ -17,7 +19,13 @@
     <div class="w-100"></div>
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" to="#" @click="logout()">Disconnettiti</a>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link btn btn-link px-3" href="#" @click="logout()">
+              Logout
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </header>
@@ -30,11 +38,16 @@ export default {
   },
   methods: {
     async logout() {
-      await this.$auth.logout();
+      const result = await this.$swal.question(
+        `Do you want to logout and get out?`
+      );
+      if (result.isConfirmed) {
+        await this.$auth.logout();
+        this.$auth.strategies.local.reset();
+      }
       // this.$auth.strategies.local.options.endpoints.user.headers[
       //   "Authorization"
       // ] = null;
-      this.$auth.strategies.local.reset();
     },
   },
 };

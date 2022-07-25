@@ -1,5 +1,5 @@
 {
-    "name": "starter",
+    "name": "boilerplate",
     "version": "1.0.0",
     "author": {
         "name": "Daniele Montecchi",
@@ -12,7 +12,7 @@
         "build": "laravel-nuxt build"
     },
     "dependencies": {
-        "@nuxtjs/auth": "^4.9.1",
+        "@nuxtjs/auth": "4.9.1",
         "@nuxtjs/axios": "5.13.6",
         "axios": "0.21.1",
         "bootstrap": "5.1.3",
@@ -25,7 +25,7 @@
         "vue-server-renderer": "2.7.7",
         "vue-sweetalert2": "5.0.5",
         "vue-template-compiler": "2.7.7",
-        "vuex": "^3.6.2",
+        "vuex": "3.6.2",
         "webpack": "4.46.0"
     },
     "devDependencies": {

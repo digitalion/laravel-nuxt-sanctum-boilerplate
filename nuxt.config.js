@@ -9,7 +9,7 @@ module.exports = laravelNuxt({
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "starter",
+    title: "boilerplate",
     htmlAttrs: {
       lang: "it",
     },
@@ -53,7 +53,8 @@ module.exports = laravelNuxt({
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    "~/plugins/toast",
+    "~/plugins/ui",
+    "~/plugins/sweetalert",
     "~/plugins/axios",
     { src: "~/plugins/bootstrap.js", mode: "client" },
   ],
@@ -104,25 +105,25 @@ module.exports = laravelNuxt({
       //     name: "XSRF-TOKEN",
       //   },
       // },
-      laravelSanctum: {
-        provider: "laravel/sanctum",
-        url: process.env.MIX_API_URL,
-        endpoints: {
-          login: {
-            url: "/api/auth/login",
-            method: "post",
-            propertyName: "data.token",
-          },
-          user: { url: "/api/auth/me", method: "get", propertyName: "data" },
-          logout: { url: "/api/auth/logout", method: "get" },
-          csrf: { url: "/api/sanctum/csrf-cookie" },
-        },
-        user: {
-          property: "data",
-        },
-        tokenRequired: false,
-        tokenType: false,
-      },
+      // laravelSanctum: {
+      //   provider: "laravel/sanctum",
+      //   url: process.env.MIX_API_URL,
+      //   endpoints: {
+      //     login: {
+      //       url: "/api/auth/login",
+      //       method: "post",
+      //       propertyName: "data.token",
+      //     },
+      //     user: { url: "/api/auth/me", method: "get", propertyName: "data" },
+      //     logout: { url: "/api/auth/logout", method: "get" },
+      //     csrf: { url: "/api/sanctum/csrf-cookie" },
+      //   },
+      //   user: {
+      //     property: "data",
+      //   },
+      //   tokenRequired: false,
+      //   tokenType: false,
+      // },
       local: {
         token: {
           property: "data.token",

@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+	  "baseUrl": ".",
+	  "paths": {
+		"@/*": [
+		  "resources/nuxt/*"
+		],
+		"@components/*": [
+		  "resources/nuxt/components/*"
+		]
+	  }
+	},
+	"exclude": [
+	  "node_modules",
+	  "public"
+	]
+  }

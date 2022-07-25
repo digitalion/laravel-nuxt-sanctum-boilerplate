@@ -6,7 +6,7 @@
       <h1>Dashboard</h1>
     </div>
     <div class="block mt-4 fst-italic">
-      Bentornato <span class="fw-bold">{{ $auth.user.name }}</span>
+      Welcome <span class="fw-bold">{{ $auth.user.name }}</span>
     </div>
   </div>
 </template>

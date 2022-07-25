@@ -16,8 +16,9 @@ export default function ({ $axios, $toast, isDev, isServer, app }) {
     logger.log(response);
 
     var message = "";
-    if (response && response.data && response.data.message != "")
+    if (response && response.data && response.data.message != "") {
       message = response.data.message;
+    }
     if (message && message.length > 0) {
       $toast.success(message);
     }
