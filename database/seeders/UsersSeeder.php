@@ -3,31 +3,40 @@
 namespace Database\Seeders;
 
 use App\Enums\RoleEnum;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Models\Role;
 
 class UsersSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        Schema::disableForeignKeyConstraints();
-        DB::table('users')->truncate();
-        Schema::enableForeignKeyConstraints();
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		Schema::disableForeignKeyConstraints();
+		User::truncate();
+		Schema::enableForeignKeyConstraints();
 
-        $user = User::create([
-            'email' => 'admin@digitalion',
-            'password' => Hash::make('digitalion'),
-            'name' => 'Admin',
-        ]);
-        $user->roles()->attach(Role::where('slug', RoleEnum::Admin)->first());
-    }
+		$admin = User::create([
+			'email' => 'admin@digitalion',
+			'password' => 'digitalion',
+			'firstname' => 'Test',
+			'lastname' => 'Admin',
+		]);
+		$role = Role::where('name', RoleEnum::Admin)->first();
+		$admin->assignRole($role);
+
+		$user = User::create([
+			'email' => 'user@digitalion',
+			'password' => 'digitalion',
+			'firstname' => 'Test',
+			'lastname' => 'User',
+		]);
+		$role = Role::where('name', RoleEnum::User)->first();
+		$user->assignRole($role);
+	}
 }

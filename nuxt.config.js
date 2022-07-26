@@ -9,7 +9,7 @@ module.exports = laravelNuxt({
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "boilerplate",
+    title: "Boilerplate",
     htmlAttrs: {
       lang: "it",
     },
@@ -78,23 +78,25 @@ module.exports = laravelNuxt({
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.MIX_BASE_URL,
+    baseURL: process.env.MIX_API_URL,
+    prefix: "/api",
+    defaults: {
+      // crossDomain: true,
+      withCredentials: true,
+    },
     credentials: true,
+    proxy: false,
+    proxyHeaders: false,
+    debug: process.env.APP_ENV !== "production",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "X-Requested-With": "XMLHttpRequest",
+      // "Access-Control-Allow-Origin": "*",
+      // "X-Requested-With": "XMLHttpRequest",
     },
   },
 
-  sweetalert: {
-    reverseButtons: true,
-    // confirmButtonColor: utilUi.colors.success,
-    confirmButtonText: "Si",
-    // cancelButtonColor: utilUi.colors.disabled,
-    cancelButtonText: "Annulla",
-  },
+  sweetalert: {},
 
   auth: {
     localStorage: false,
@@ -137,23 +139,23 @@ module.exports = laravelNuxt({
         },
         endpoints: {
           login: {
-            url: "/api/auth/login",
+            url: "/auth/login",
             method: "post",
             withCredentials: true,
             propertyName: "data.token",
           },
           user: {
-            url: "/api/auth/me",
+            url: "/auth/profile",
             method: "get",
             withCredentials: true,
             propertyName: "data",
           },
           logout: {
-            url: "/api/auth/logout",
+            url: "/auth/logout",
             method: "get",
             withCredentials: true,
           },
-          csrf: { url: "/api/auth/csrf-cookie" },
+          csrf: { url: "/auth/csrf-cookie" },
         },
         tokenRequired: true,
         tokenType: "Bearer",

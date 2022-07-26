@@ -4,10 +4,9 @@ namespace App\Enums;
 
 use Digitalion\LaravelMakes\Traits\EnumSerializableTrait;
 
-final class RoleEnum
+final class PermissionEnum
 {
 	use EnumSerializableTrait;
 
-	const Admin = 'admin';
-	const User = 'user';
+	const PanelAdmin = 'panel-admin';
 }

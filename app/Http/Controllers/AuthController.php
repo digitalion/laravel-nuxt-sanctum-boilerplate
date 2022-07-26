@@ -17,13 +17,13 @@ class AuthController extends Controller
 			return response()->error(trans('auth.failed'), 401);
 		}
 		$user->tokens()->delete();
-		$roles = $user->roles->pluck('slug')->all();
+		$roles = $user->roles->pluck('name')->all();
 		$token = $user->createToken('token', $roles)->plainTextToken;
 
-		return response()->success(compact('token'), trans('auth.logged', ['name' => $user->name]));
+		return response()->success(compact('token'), 200, trans('auth.logged', ['name' => $user->name]));
 	}
 
-	public function me()
+	public function profile()
 	{
 		return response()->success(auth()->user());
 	}

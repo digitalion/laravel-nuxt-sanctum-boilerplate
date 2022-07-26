@@ -2,28 +2,50 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionEnum;
 use App\Enums\RoleEnum;
-use App\Models\Role;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
-    public function run()
-    {
-        Schema::disableForeignKeyConstraints();
-        DB::table('user_roles')->truncate();
-        DB::table('roles')->truncate();
-        Schema::enableForeignKeyConstraints();
+	public function run()
+	{
+		Schema::disableForeignKeyConstraints();
+		Role::truncate();
+		Permission::truncate();
+		Schema::enableForeignKeyConstraints();
 
-        $roles = [
-            ['name' => 'Administrator', 'slug' => RoleEnum::Admin],
-            ['name' => 'User', 'slug' => RoleEnum::User],
-        ];
+		$guard_name = config('auth.defaults.guard');
 
-        collect($roles)->each(function ($role) {
-            Role::create($role);
-        });
-    }
+		// create roles
+		$roles = collect(RoleEnum::values())
+			->map(function ($role) use ($guard_name) {
+				return [
+					'name' => $role,
+					'guard_name' => $guard_name,
+				];
+			})
+			->values()
+			->all();
+		Role::insert($roles);
+
+		// create permissions
+		$permissions = collect(PermissionEnum::values())
+			->map(function ($permission) use ($guard_name) {
+				return [
+					'name' => $permission,
+					'guard_name' => $guard_name,
+				];
+			})
+			->values();
+		Permission::insert($permissions->all());
+
+		// give permission
+		$role_admin = Role::where('name', RoleEnum::Admin)->first();
+		$permissions = Permission::all();
+		$role_admin->syncPermissions($permissions);
+	}
 }

@@ -39,17 +39,22 @@ export default {
       password: "",
     };
   },
+  mounted() {
+    console.log("env", process.env);
+  },
 
   methods: {
     async login() {
-      await this.$auth.loginWith("local", {
-        data: {
-          email: this.email,
-          password: this.password,
-        },
-      });
+      this.$axios.get("/auth/csrf-cookie").then(async (response) => {
+        await this.$auth.loginWith("local", {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        });
 
-      this.$router.push("/");
+        this.$router.push("/");
+      });
     },
   },
 };

@@ -2,101 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use Illuminate\Http\Request;
+use App\Http\Requests\RoleDeleteRequest;
+use App\Http\Requests\RoleSaveRequest;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Role::all();
-    }
+	public function index()
+	{
+		$roles = Role::all();
+		return response()->success($roles);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'name' => 'required',
-            'slug' => 'required',
-        ]);
+	public function store(RoleSaveRequest $request)
+	{
+		$role = Role::firstOrCreate(['name' => $request('name')]);
 
-        $existing = Role::where('slug', $data['slug'])->first();
+		if ($role->wasRecentlyCreated) {
+			return response()->success($role, trans('roles.messages.create_success'));
+		} else {
+			return response()->error(trans('roles.messages.create_already_exists'), 409);
+		}
+	}
 
-        if (!$existing) {
-            $role = Role::create([
-                'name' => $data['name'],
-                'slug' => $data['slug'],
-            ]);
+	public function show(Role $role)
+	{
+		return response()->success($role);
+	}
 
-            return $role;
-        }
+	public function update(RoleSaveRequest $request, Role $role)
+	{
+		$role->update($request->validated());
 
-        return response(['error' => 1, 'message' => 'role already exists'], 409);
-    }
+		return response()->success($role, trans('roles.messages.update_success'));
+	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \App\Models\Role $role
-     */
-    public function show(Role $role)
-    {
-        return $role;
-    }
+	public function destroy(RoleDeleteRequest $request, Role $role)
+	{
+		$role->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|Role
-     */
-    public function update(Request $request, Role $role = null)
-    {
-        if (!$role) {
-            return response(['error' => 1, 'message' => 'role doesn\'t exist'], 404);
-        }
-
-        $role->name = $request->name ?? $role->name;
-
-        if ($request->slug) {
-            if ($role->slug != 'admin') {
-                //don't allow changing the admin slug, because it will make the routes inaccessbile due to faile ability check
-                $role->slug = $request->slug;
-            }
-        }
-
-        $role->update();
-
-        return $role;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
-    {
-        if ($role->slug != 'admin') {
-            //don't allow changing the admin slug, because it will make the routes inaccessbile due to faile ability check
-            $role->delete();
-
-            return response(['error' => 0, 'message' => 'role has been deleted']);
-        }
-
-        return response(['error' => 1, 'message' => 'you cannot delete this role'], 422);
-    }
+		return response()->success(trans('roles.messages.delete_success'));
+	}
 }

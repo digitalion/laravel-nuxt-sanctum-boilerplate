@@ -39,7 +39,10 @@ export default {
   methods: {
     async logout() {
       const result = await this.$swal.question(
-        `Do you want to logout and get out?`
+        `Do you want to logout and get out?`,
+        {
+          confirmButtonColor: this.$ui.colors.danger,
+        }
       );
       if (result.isConfirmed) {
         await this.$auth.logout();

@@ -4,13 +4,12 @@ namespace App\Http\Requests;
 
 use Digitalion\LaravelBaseProject\Requests\BaseRequest;
 
-class AuthRequest extends BaseRequest
+class RoleSaveRequest extends BaseRequest
 {
 	public function rules()
 	{
 		return [
-			'email' => 'required|email',
-			'password' => 'required',
+			'name' => 'required',
 		];
 	}
 }

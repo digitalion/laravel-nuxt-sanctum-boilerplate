@@ -1,14 +1,10 @@
 import AxiosLogger from "@lollipop-onl/axios-logger";
-import { onErrorCaptured } from "vue";
 
 export default function ({ $axios, $toast, isDev, isServer, app }) {
   const logger = new AxiosLogger({
     isServer,
     quiet: !isDev,
   });
-
-  $axios.setHeader("Content-Type", "application/json");
-  $axios.setHeader("Accept", "application/json");
 
   $axios.onRequest((config) => {});
 

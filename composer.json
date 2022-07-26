@@ -9,12 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "arcanedev/log-viewer": "^9.0",
+        "digitalion/laravel-base-project": "@dev",
         "digitalion/laravel-makes": "^1.0",
         "digitalion/laravel-nuxt": "^1.5",
         "guzzlehttp/guzzle": "^7.4.4",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.15.1",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {
         "beyondcode/helo-laravel": "^1.4",
@@ -26,6 +29,15 @@
         "phpunit/phpunit": "^9.5.10",
         "spatie/laravel-ignition": "^1.0"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../dl.packages/packages/digitalion/laravel-base-project/",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "app/",
