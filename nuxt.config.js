@@ -78,16 +78,10 @@ module.exports = laravelNuxt({
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.MIX_API_URL,
+    baseURL: process.env.MIX_BASE_URL,
     prefix: "/api",
-    defaults: {
-      // crossDomain: true,
-      withCredentials: true,
-    },
     credentials: true,
-    proxy: false,
-    proxyHeaders: false,
-    debug: process.env.APP_ENV !== "production",
+    // debug: process.env.APP_ENV !== "production",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

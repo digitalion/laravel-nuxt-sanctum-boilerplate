@@ -14,7 +14,6 @@ const configToast = {
 };
 
 var configSwal = {
-  reverseButtons: true,
   showConfirmButton: true,
   confirmButtonText: "Yes",
   showCancelButton: true,
